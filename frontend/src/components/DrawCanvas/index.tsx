@@ -38,7 +38,6 @@ const DrawCanvas = () => {
       return;
     }
 
-    console.log(e.nativeEvent.offsetX, e.nativeEvent.offsetY);
     canvasContext.current.beginPath();
     canvasContext.current.moveTo(e.nativeEvent.offsetX, e.nativeEvent.offsetY);
     setIsDrawing(true);
@@ -52,10 +51,8 @@ const DrawCanvas = () => {
       return;
     }
 
-    console.log(e.nativeEvent.offsetX, e.nativeEvent.offsetY);
     canvasContext.current.lineTo(e.nativeEvent.offsetX, e.nativeEvent.offsetY);
     canvasContext.current.stroke();
-
     setIsDrawing(true);
   };
 
