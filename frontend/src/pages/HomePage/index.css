@@ -8,14 +8,13 @@
     width: 100dvw;
     height: 100dvh;
 
-    background-color: #1A1B1C;
+    background-color: var(--background-color);
 }
 
 .home-main > h1 {
     font-family: "Jersey 15";
     font-size: 8rem;
-    color: #f2f2f2;
-
+    color: var(--primary-color);
 }
 
 
