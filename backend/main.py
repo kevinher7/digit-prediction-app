@@ -1,4 +1,4 @@
-from flask import Flask, request
+from flask import Flask, jsonify, request
 import tensorflow as tf
 import numpy as np
 
@@ -15,19 +15,24 @@ except Exception as e:
 
 @app.post("/api/prediction")
 def prediction_post():
-    pixel_list = request.get_json()["pixel_data"]
+    try:
+        pixel_list = request.get_json()["pixel_data"]
 
-    if (len(pixel_array) != 784):
-        return "Invalid Request"
+        if (len(pixel_list) != 784):
+            raise ValueError(
+                "Request array is not the appropriate length (784)")
 
-    pixel_array = np.array(pixel_list)
+        pixel_array = np.array(pixel_list)
 
-    # add an extra dimension to give it
-    # a "batch-like" shape of (1, 784)
-    pixel_array = np.expand_dims(pixel_array, 0)
-    prediction = model.predict(pixel_array)
+        # add an extra dimension to give it
+        # a "batch-like" shape of (1, 784)
+        pixel_array = np.expand_dims(pixel_array, 0)
+        prediction = model.predict(pixel_array)
 
-    return prediction[0].tolist()
+        return jsonify({"prediction": prediction[0].tolist()})
+
+    except Exception as e:
+        return jsonify({"error": str(e)}), 400
 
 
 if __name__ == "__main__":
