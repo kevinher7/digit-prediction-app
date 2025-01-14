@@ -29,7 +29,7 @@ const DrawCanvas = () => {
     canvasContext.current.strokeStyle = "white";
 
     // In order to replicate the scale of the original dataset
-    // we make the width of the strokes 10% of the total image length
+    // we make the width of the strokes 10% of the total canvas length
     canvasContext.current.lineWidth = canvasLength * 0.1;
   }, []);
 
