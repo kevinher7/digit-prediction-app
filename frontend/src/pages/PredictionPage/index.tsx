@@ -46,6 +46,7 @@ const PredictionPage = () => {
               <p>8</p>
               <p>9</p>
             </div>
+            <div className="prediction-probability--value">2.0%</div>
           </div>
         </main>
       ) : (

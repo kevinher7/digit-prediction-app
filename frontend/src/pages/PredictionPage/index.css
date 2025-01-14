@@ -143,6 +143,12 @@
     cursor: pointer;
 }
 
+.prediction-probability--value {
+    margin-top: 1rem;
+
+    font-size: 1.5rem;
+}
+
 .prediction-footer {
     display: flex;
     flex-direction: column;
