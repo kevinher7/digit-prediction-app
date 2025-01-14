@@ -1,0 +1,193 @@
+@import url('https://fonts.googleapis.com/css2?family=Playwrite+AU+SA:wght@100..400&display=swap');
+
+.prediction{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100dvw;
+    height: 100dvh;
+    color: var(--primary-color);
+    background-color: var(--background-color);
+}
+
+.prediction-header {
+    display: flex;
+    flex-direction: column;
+}
+
+.prediction-header > h1 {
+    position: relative;
+    font-family: "Jersey 15";
+    font-size: 6rem;
+    color: var(--primary-color);
+}
+
+.prediction-percent {
+    display: flex;
+    position: relative;
+    top: 19%;
+    left: 71%;
+
+    width: fit-content;
+    height: fit-content;
+
+    cursor: pointer;
+}
+
+.prediction-bubble {
+    width: 10rem;
+    height: 10rem;
+}
+
+.prediction-bubble:hover {
+    transition: 0.4s;
+    fill: var(--detail-color);
+}
+
+
+.prediction-percent > p {
+    position: absolute;
+    top: 38%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    color: var(--background-color);
+
+    font-family: "Playwrite";
+    font-size: 2rem;
+    font-weight: bolder;
+}
+
+.prediction-percent > p:hover + .prediction-bubble {
+    transition: 0.4s;
+    fill: var(--detail-color);
+}
+
+.prediction-detail--toggle{
+    align-self: center;
+
+    color: var(--detail-color);
+    background-color: transparent;
+    border: none;
+
+    height: fit-content;
+    padding: 0;
+
+    font-family: "Playwrite";
+    font-size: 1.5rem;
+    font-weight: bolder;
+
+    cursor: pointer;
+}
+
+.prediction-detail--toggle:hover{
+    text-decoration-line: underline;
+}
+
+.prediciton-main {
+    display: flex;
+
+    margin-top: 2rem;
+
+    font-size: 1.5rem;
+
+    width: 60dvw;
+    justify-content: space-around;
+    height: 16rem;
+}
+
+.prediction-main--view{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+
+    width: 40%;
+}
+
+.prediction-main--details{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+
+
+    width: 40%;
+}
+
+.prediction-main--details > p > span {
+    color: var(--detail-color);
+    font-weight: bolder;
+}
+
+.prediction-probabilities{
+    display: flex;
+    justify-content: space-around;
+    
+    width: 100%;
+
+    margin-top: 2rem;
+    
+    font-family: "Jersey 15";
+    font-size: 2rem;
+}
+
+.prediction-probabilities > p {
+    text-align: center;
+    
+    width: 9%;
+
+    background-color: var(--negative-color);
+
+    cursor: pointer;
+}
+
+.prediction-footer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    margin-top: 2rem;
+}
+
+.feedback-buttons {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+
+    margin-top: 1rem;
+    
+    width: 20rem;
+    
+}
+
+.yes-button{
+    color: black;
+    background-color: white;
+    border-color: black;
+
+    font-size: 1.5rem;
+
+    width: 8rem;
+}
+
+.yes-button:hover{
+    transition: 0.25s;
+    background-color: var(--positive-color);
+}
+
+.no-button{
+    color: white;
+    background-color: black;
+    border-color: white;
+
+    font-size: 1.5rem;
+
+    width: 8rem;
+}
+
+.no-button:hover{
+    transition: 0.3s;
+    background-color: var(--negative-color);
+}
