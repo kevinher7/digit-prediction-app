@@ -8,16 +8,10 @@
 git clone https://github.com/kevinher7/digit-prediction-app
 ```
 
-2. Go into both the frontend and backend folders and run
+2. Then run the backend (in development mode) using
 
 ```bash
-npm install
-```
-
-3. Then run the backend using
-
-```bash
-npm run start:dev
+python -m flask --app main run --debug
 ```
 
 4. And the frontend with
