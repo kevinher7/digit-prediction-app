@@ -1,4 +1,4 @@
-import { useRef, useEffect, useState, useContext } from "react";
+import { useRef, useEffect, useState } from "react";
 import { MouseEvent } from "react";
 
 import "./index.css";
