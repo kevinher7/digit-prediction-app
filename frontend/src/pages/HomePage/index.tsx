@@ -6,6 +6,7 @@ import { CanvasElement } from "../../types/CanvasElement.type";
 import { DrawCanvasContext } from "../../context/drawCanvasContext";
 
 import "./index.css";
+import PredictButton from "../../components/PredictButton";
 
 const HomePage = () => {
   const canvasRef = useRef<CanvasElement>(null);
@@ -15,7 +16,7 @@ const HomePage = () => {
       <h1>Digit Prediction</h1>
       <DrawCanvasContext.Provider value={canvasRef}>
         <DrawCanvas />
-        <button>Make Prediction</button>
+        <PredictButton />
       </DrawCanvasContext.Provider>
     </main>
   );
