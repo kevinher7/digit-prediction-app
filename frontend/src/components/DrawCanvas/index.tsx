@@ -1,8 +1,9 @@
 import { useRef, useEffect, useState } from "react";
 import { MouseEvent } from "react";
 
-import "./index.css";
 import { useDrawCanvasContext } from "../../context/drawCanvasContext";
+
+import "./index.css";
 
 const DrawCanvas = () => {
   const canvasRef = useDrawCanvasContext();

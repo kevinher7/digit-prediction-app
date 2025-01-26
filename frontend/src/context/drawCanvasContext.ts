@@ -1,6 +1,7 @@
 import { createContext, useContext } from "react";
-import { CanvasElement } from "../types/CanvasElement.type";
+
 import { MutableRefObject } from "react";
+import { CanvasElement } from "../types/CanvasElement.type";
 
 export const DrawCanvasContext = createContext<
   MutableRefObject<CanvasElement> | undefined

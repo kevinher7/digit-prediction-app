@@ -1,9 +1,9 @@
 import { useRef } from "react";
 
-import { DrawCanvasContext } from "../../context/drawCanvasContext";
-import { CanvasElement } from "../../types/CanvasElement.type";
-
 import DrawCanvas from "../../components/DrawCanvas";
+
+import { CanvasElement } from "../../types/CanvasElement.type";
+import { DrawCanvasContext } from "../../context/drawCanvasContext";
 
 import "./index.css";
 
