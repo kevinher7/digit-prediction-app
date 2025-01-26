@@ -1,10 +1,11 @@
-import { useRef, useEffect, useState } from "react";
+import { useRef, useEffect, useState, useContext } from "react";
 import { MouseEvent } from "react";
 
 import "./index.css";
+import { useDrawCanvasContext } from "../../context/drawCanvasContext";
 
 const DrawCanvas = () => {
-  const canvasRef = useRef<HTMLCanvasElement | null>(null);
+  const canvasRef = useDrawCanvasContext();
   const canvasContext = useRef<CanvasRenderingContext2D | null>(null);
   const [isDrawing, setIsDrawing] = useState(false);
 
