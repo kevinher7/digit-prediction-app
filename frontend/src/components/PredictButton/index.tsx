@@ -1,57 +1,7 @@
 import { useDrawCanvasContext } from "../../context/drawCanvasContext";
 import { CanvasElement } from "../../types/CanvasElement.type";
 
-// const resizeImageData = (pixelsColorsArray: Uint8ClampedArray) => {
-//   const sourcePixelLength = 560;
-//   const targetPixelLength = 20;
-
-//   const targetPixelArray = [];
-
-//   //   for (
-//   //     let targetPixelY = 0;
-//   //     targetPixelY < sourcePixelLength;
-//   //     targetPixelY += 20
-//   //   ) {
-//   //     for (
-//   //       let targetPixelX = 0;
-//   //       targetPixelX < sourcePixelLength;
-//   //       targetPixelX += 20
-//   //     ) {
-//   //       let bigPixelSum = 0;
-//   //       for (
-//   //         let sourcePixelY = 0;
-//   //         sourcePixelY < targetPixelLength;
-//   //         sourcePixelY += 1
-//   //       ) {
-//   //         for (
-//   //           let sourcePixelX = 0;
-//   //           sourcePixelX < targetPixelLength;
-//   //           sourcePixelX += 1
-//   //         ) {
-//   //           bigPixelSum +=
-//   //             pixelsColorsArray[
-//   //               targetPixelX + sourcePixelX + (targetPixelY + sourcePixelY) * 560
-//   //             ];
-//   //         }
-//   //       }
-//   // The pixelColorsArray contains 4 numbers representing the RGB of the pixel
-//   // I need to multiply by 4 or something xd
-//   let bigPixelSum = 0;
-//   for (let y = 0; y < 20; y += 1) {
-//     for (let x = 0; x < 20; x += 1) {
-//       //   console.log(pixelsColorsArray[x + y * 560]);
-//       //   bigPixelSum += pixelsColorsArray[x + y * 560];
-//       // pixelsColorsArray[x + y * 560] = 180;
-//     }
-//   }
-
-//   targetPixelArray.push(bigPixelSum / (20 * 20));
-//   // }
-//   //   }
-//   console.log(targetPixelArray);
-//   return targetPixelArray;
-// };
-
+// JUST SEND THIS TO THE BACKEND AND USE NUMPY FOR REAL xd
 const getPixelsFromCanvas = (
   canvasRef: React.MutableRefObject<CanvasElement>
 ): Uint8ClampedArray => {
@@ -68,7 +18,23 @@ const getPixelsFromCanvas = (
   // const canvasLength = 560;
   const canvasImageData = canvasContext.getImageData(0, 0, 560, 560);
 
+  fetchPrediction(canvasImageData.data);
+  // This array has 4 numbers associated to each pixel (4*560*560)
   return canvasImageData.data;
+};
+
+const fetchPrediction = async (pixelsArray: Uint8ClampedArray) => {
+  const prediction = await fetch("http://127.0.0.1:5000/api/prediction", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      pixel_data: Array.from(pixelsArray),
+    }),
+  });
+
+  console.log(await prediction.json());
 };
 
 const PredictButton = () => {
