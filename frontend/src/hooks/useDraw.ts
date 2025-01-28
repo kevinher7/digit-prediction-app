@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { MouseEvent } from "react";
 
 import { useDrawCanvasContext } from "../context/drawCanvasContext";
-import ensureCanvasContext from "../utils/ensureCanvasContext";
+import ensureCanvas2DContext from "../utils/ensureCanvas2DContext";
 
 const useDraw = (canvasLength: number) => {
   const canvasRef = useDrawCanvasContext();
@@ -35,7 +35,7 @@ const useDraw = (canvasLength: number) => {
   }, []);
 
   const startDrawing = (e: MouseEvent<HTMLCanvasElement>) => {
-    const canvasDrawContext = ensureCanvasContext(canvasContext);
+    const canvasDrawContext = ensureCanvas2DContext(canvasContext);
 
     canvasDrawContext.beginPath();
     canvasDrawContext.moveTo(e.nativeEvent.offsetX, e.nativeEvent.offsetY);
@@ -47,7 +47,7 @@ const useDraw = (canvasLength: number) => {
       return;
     }
 
-    const canvasDrawContext = ensureCanvasContext(canvasContext);
+    const canvasDrawContext = ensureCanvas2DContext(canvasContext);
 
     canvasDrawContext.lineTo(e.nativeEvent.offsetX, e.nativeEvent.offsetY);
     canvasDrawContext.stroke();
@@ -55,7 +55,7 @@ const useDraw = (canvasLength: number) => {
   };
 
   const stopDrawing = () => {
-    const canvasDrawContext = ensureCanvasContext(canvasContext);
+    const canvasDrawContext = ensureCanvas2DContext(canvasContext);
 
     canvasDrawContext.closePath();
     setIsDrawing(false);

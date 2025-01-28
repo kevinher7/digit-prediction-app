@@ -1,6 +1,6 @@
 import { MutableRefObject } from "react";
 
-const ensureCanvasContext = (
+const ensureCanvas2DContext = (
   canvasContext: MutableRefObject<CanvasRenderingContext2D | null>
 ): CanvasRenderingContext2D => {
   if (!canvasContext.current) {
@@ -9,4 +9,4 @@ const ensureCanvasContext = (
   return canvasContext.current;
 };
 
-export default ensureCanvasContext;
+export default ensureCanvas2DContext;
