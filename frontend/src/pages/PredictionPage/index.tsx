@@ -3,9 +3,12 @@ import { useState } from "react";
 import SquareBubble from "../../assets/square-speech-bubble.svg?react";
 
 import "./index.css";
+import { useLocation } from "react-router-dom";
 
 const PredictionPage = () => {
   const [showDetails, setShowDetails] = useState(false);
+  const { state } = useLocation();
+  console.log(state);
 
   return (
     <div className="prediction">
@@ -14,16 +17,16 @@ const PredictionPage = () => {
           className="prediction-percent"
           onClick={() => setShowDetails(!showDetails)}
         >
-          {/* <img src={SquareBubble} alt="-" width="150px" /> */}
           <p>{"(98.6%)"}</p>
           <SquareBubble className="prediction-bubble" />
         </span>
         <h1>
-          Your number was a <span className="predictin-digit">7</span>!
+          Your number was a{" "}
+          <span className="predictin-digit">{state.prediction}</span>!
         </h1>
       </header>
       {showDetails ? (
-        <main className="prediciton-main">
+        <main className="prediction-main">
           <div className="prediction-main--view">
             <p>This is what the model saw!</p>
             <p>Image</p>

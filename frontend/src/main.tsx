@@ -8,7 +8,6 @@ import PredictionPage from "./pages/PredictionPage";
 import ErrorPage from "./pages/ErrorPage";
 
 import "./index.css";
-import { PredictionResponseContext } from "./context/predictionResponseContext";
 
 const router = createBrowserRouter([
   {
@@ -24,8 +23,6 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <PredictionResponseContext.Provider value={null}>
-      <RouterProvider router={router} />
-    </PredictionResponseContext.Provider>
+    <RouterProvider router={router} />
   </StrictMode>
 );
