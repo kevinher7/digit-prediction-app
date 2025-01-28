@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { MouseEvent } from "react";
 
 import { useDrawCanvasContext } from "../context/drawCanvasContext";
+import ensureCanvasContext from "../utils/ensureCanvasContext";
 
 const useDraw = (canvasLength: number) => {
   const canvasRef = useDrawCanvasContext();
@@ -11,33 +12,33 @@ const useDraw = (canvasLength: number) => {
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) {
-      return;
+      throw new Error("Could not locate the canvas!");
     }
 
     canvasContext.current = canvas.getContext("2d");
 
     if (!canvasContext.current) {
-      return;
+      throw new Error("Could not fetch canvas 2d context!");
     }
 
-    canvasContext.current.lineCap = "round";
-    canvasContext.current.lineJoin = "round";
-    canvasContext.current.lineJoin = "round";
-    canvasContext.current.globalAlpha = 0.5;
-    canvasContext.current.strokeStyle = "white";
+    const canvasCtx = canvasContext.current;
+
+    canvasCtx.lineCap = "round";
+    canvasCtx.lineJoin = "round";
+    canvasCtx.lineJoin = "round";
+    canvasCtx.globalAlpha = 0.5;
+    canvasCtx.strokeStyle = "white";
 
     // In order to replicate the scale of the original dataset
     // we make the width of the strokes 10% of the total canvas length
-    canvasContext.current.lineWidth = canvasLength * 0.1;
+    canvasCtx.lineWidth = canvasLength * 0.1;
   }, []);
 
   const startDrawing = (e: MouseEvent<HTMLCanvasElement>) => {
-    if (canvasContext.current === null) {
-      return;
-    }
+    const canvasDrawContext = ensureCanvasContext(canvasContext);
 
-    canvasContext.current.beginPath();
-    canvasContext.current.moveTo(e.nativeEvent.offsetX, e.nativeEvent.offsetY);
+    canvasDrawContext.beginPath();
+    canvasDrawContext.moveTo(e.nativeEvent.offsetX, e.nativeEvent.offsetY);
     setIsDrawing(true);
   };
 
@@ -45,21 +46,18 @@ const useDraw = (canvasLength: number) => {
     if (!isDrawing) {
       return;
     }
-    if (canvasContext.current === null) {
-      return;
-    }
 
-    canvasContext.current.lineTo(e.nativeEvent.offsetX, e.nativeEvent.offsetY);
-    canvasContext.current.stroke();
+    const canvasDrawContext = ensureCanvasContext(canvasContext);
+
+    canvasDrawContext.lineTo(e.nativeEvent.offsetX, e.nativeEvent.offsetY);
+    canvasDrawContext.stroke();
     setIsDrawing(true);
   };
 
   const stopDrawing = () => {
-    if (canvasContext.current === null) {
-      return;
-    }
+    const canvasDrawContext = ensureCanvasContext(canvasContext);
 
-    canvasContext.current.closePath();
+    canvasDrawContext.closePath();
     setIsDrawing(false);
   };
 
