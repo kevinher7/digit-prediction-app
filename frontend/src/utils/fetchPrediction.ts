@@ -9,7 +9,7 @@ const fetchPrediction = async (pixelsArray: Uint8ClampedArray) => {
     }),
   });
 
-  console.log(await prediction.json());
+  return await prediction.json();
 };
 
 export default fetchPrediction;
