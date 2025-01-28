@@ -1,7 +1,7 @@
 from flask import Flask, jsonify, request
 from flask_cors import CORS
+from utils import PixelArrayPreprocessor
 import tensorflow as tf
-import matplotlib.pyplot as plt
 import numpy as np
 
 MODEL_PATH = "./model/digit-prediction.keras"
@@ -29,38 +29,20 @@ def prediction_post():
             raise ValueError(
                 "Request array is not the appropriate length (560x560x4)")
 
-        raw_pixel_array = np.array(pixel_list)
-        rgb_pixel_array = raw_pixel_array.reshape(313600, 4)
+        # Image Preprocessing
+        pixel_preprocessor = PixelArrayPreprocessor(pixel_list)
+        pixel_preprocessor.parse()
+        pixel_array = pixel_preprocessor.normalize_and_expand()
 
-        rgb_pixel_array = rgb_pixel_array[:, :-1]
+        # Resulting image data
+        image_base64_string = pixel_preprocessor.encode_to_base64()
 
-        pixel_array = rgb_pixel_array[:, 0]*0.299 + \
-            rgb_pixel_array[:, 1]*0.587 + rgb_pixel_array[:, 2]*0.114
+        predictions = model.predict(pixel_array)
+        predictions_normalized = predictions / np.sum(predictions[0])
 
-        # Make it a big quare
-        pixel_array = pixel_array.reshape(560, 560)
-        # Separate into 28*28 groups of pixels
-        pixel_array = pixel_array.reshape(28, 20, 28, 20)
-        # Average the color in each group
-        pixel_array = pixel_array.mean(axis=(1, 3))
-        # Flatten the result
-        pixel_array = pixel_array.flatten()
-
-        plt.imshow(pixel_array.reshape(28, 28), cmap='gray')
-        plt.axis('off')  # Turn off the axes for a clean image display
-        plt.savefig("output_image.png", bbox_inches='tight', pad_inches=0)
-
-        pixel_array = pixel_array / 255  # Normalize
-
-        # add an extra dimension to give it
-        # a "batch-like" shape of (1, 784)
-        pixel_array = np.expand_dims(pixel_array, 0)
-        prediction = model.predict(pixel_array)
-
-        prediction_normalized = prediction / np.sum(prediction[0])
-
-        return jsonify({"prediction": int(np.argmax(prediction[0])),
-                        "probabilities": prediction_normalized.tolist()}), 200
+        return jsonify({"prediction": int(np.argmax(predictions[0])),
+                        "probabilities": predictions_normalized.tolist(),
+                        "image_base64": image_base64_string}), 200
 
     except Exception as e:
         return jsonify({"error": str(e)}), 400
